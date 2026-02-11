@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>iPhone Studio</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { margin: 0; background: black; color: white; font-family: sans-serif; overflow: hidden; }
+        video { width: 100vw; height: 100vh; object-fit: cover; }
+        .controls { position: absolute; bottom: 30px; width: 100%; display: flex; justify-content: center; }
+        .shutter { width: 70px; height: 70px; border: 5px solid white; border-radius: 50%; background: none; }
+        .emoji-overlay { position: absolute; top: 50%; left: 50%; font-size: 50px; cursor: move; touch-action: none; }
+    </style>
+</head>
+<body>
+    <video id="video" autoplay playsinline></video>
+    <div id="emoji" class="emoji-overlay">📸</div> <div class="controls">
+        <button class="shutter" onclick="takePhoto()"></button>
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+        // تشغيل الكاميرا
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: true })
+            .then(stream => { video.srcObject = stream; })
+            .catch(err => console.error("Error: ", err));
+
+        // وظيفة بسيطة لتحريك الإيموجي (سحب وإفلات)
+        const emoji = document.getElementById('emoji');
+        emoji.addEventListener('touchmove', (e) => {
+            let touch = e.touches[0];
+            emoji.style.left = touch.clientX + 'px';
+            emoji.style.top = touch.clientY + 'px';
+        });
+
+        function takePhoto() {
+            alert("سيتم إضافة ميزة الحفظ قريباً!");
+        }
+    </script>
+</body>
+</html>
